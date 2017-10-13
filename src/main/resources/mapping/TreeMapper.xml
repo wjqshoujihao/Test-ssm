@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.TreeDao">
+  <resultMap id="BaseResultMap" type="com.jk.entity.Tree" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PID" property="pid" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="TARGET" property="target" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  	
+  <select id="queryTreeList" resultMap="BaseResultMap" parameterType="com.jk.entity.Tree">
+	   select * from tree  where pid = #{id}
+	</select>
+	
+	<select id="asyncTreeList" resultMap="BaseResultMap" parameterType="com.jk.entity.Tree">
+	   select * from tree where pid = #{pid}
+	</select>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.jk.entity.User" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="DH" property="dh" jdbcType="VARCHAR" />
+    <result column="SJH" property="sjh" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="INTEGER" />
+    <result column="YX" property="yx" jdbcType="INTEGER" />
+    <result column="MS" property="ms" jdbcType="VARCHAR" />
+    <result column="BH" property="bh" jdbcType="VARCHAR" />
+    <result column="CREATEDATETIME" property="createdatetime" jdbcType="TIMESTAMP" />
+    <result column="YXIANG" property="yxiang" jdbcType="VARCHAR" />
+  </resultMap>
+  	
+  <select id="toSelectUser" resultMap="BaseResultMap">
+  	 select * from t_yg 
+  </select>
+ <insert id="insertUser" parameterType="com.jk.entity.User">
+  	insert into t_yg (bh,name,sex,sjh,dh,yxiang,ms,createdatetime,yx) VALUES(#{bh},#{name},#{sex},#{sjh},#{dh},#{yxiang},#{ms},#{createdatetime},#{yc})
+  </insert>
+  <delete id="deleteUser" parameterType="string">
+  	 DELETE FROM t_yg WHERE id IN  
+    <foreach collection="array" index="index" item="item" open="(" separator="," close=")">   
+        #{item}   
+    </foreach> 
+  </delete>
+  <!-- <select id="count"  resultType="Long" parameterType="com.jk.entity.User">
+  	 select count(*) from t_yg
+  	 <where>
+      <if test="jsname!=null">
+        jsname like '%${jsname}%'
+      </if>
+    </where>
+  	 
+  </select>-->
+   <select id="toupdateById" parameterType="string" resultType="com.jk.entity.User">
+  	 select * from t_yg where id = #{id}
+  </select>
+  <update id="updateUser" parameterType="com.jk.entity.User">
+   
+	   update t_yg SET  bh = #{bh},
+	     
+	    <if  test="name!=null">
+	      name = #{name},
+	    </if>
+	   <if  test="sex!=null">
+	      sex = #{sex},
+	    </if>
+	    <if  test="sjh!=null">
+	      sjh = #{sjh},
+	    </if>
+	     <if  test="dh!=null">
+	      dh = #{dh},
+	    </if>
+	     <if  test="yxiang!=null">
+	      yxiang = #{yxiang},
+	    </if>
+	     <if  test="ms!=null and ms!='' ">
+	      ms = #{ms}
+	    </if>
+	 where id = #{id}
+	</update>
+	
+</mapper>
